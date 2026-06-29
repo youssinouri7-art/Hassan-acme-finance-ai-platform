@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acme-finance-ai-platform
+  labels:
+    app: acme-finance-ai-platform
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: acme-finance-ai-platform
+  template:
+    metadata:
+      labels:
+        app: acme-finance-ai-platform
+    spec:
+      containers:
+        - name: app
+          image: acme/acme-finance-ai-platform:demo
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_ENV
+              value: "development"
+            - name: PROMPT_SECURITY_MODE
+              value: "monitor"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
